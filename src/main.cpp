@@ -828,11 +828,13 @@ uint256 static GetOrphanRoot(const CBlock* pblock)
 
 int64 static GetBlockValue(int nHeight, int64 nFees)
 {
-    int64 nSubsidy = 4 * COIN;
+    //int64 nSubsidy = 4 * COIN;
+    int64 nSubsidy = 788000000 * COIN;
 
-
+/*
     if(nHeight < 17280) // no block reward within the first 3 days
         nSubsidy = 0;
+*/
     if(nHeight > 10519200) // no block reward after 5 years
         nSubsidy = 0;
 
@@ -1987,7 +1989,7 @@ bool LoadBlockIndex(bool fAllowNew)
         pchMessageStart[1] = 0xc0;
         pchMessageStart[2] = 0xb8;
         pchMessageStart[3] = 0xdb;
-        hashGenesisBlock = uint256("0xa50faf35e1dddf4a076a907fbcef6d9d1595390cdb1c818a35dae53b67ad0aa8");
+        hashGenesisBlock = uint256("0xed2ee61c84d58f81d9dc933f7f5ab3549d4dc2f510f4694eff3e29f140c18da4");
     }
 
     //
@@ -2019,7 +2021,7 @@ bool LoadBlockIndex(bool fAllowNew)
 	// vMerkleTree: 5a2e19825b
         
         // Genesis block
-        const char* pszTimestamp = "todo: replace with something that ensures no premining took place";
+        const char* pszTimestamp = "China has revaluated the yuan by 0.05 percent after three consecutive days of devaluation";
         CTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
@@ -2031,24 +2033,26 @@ bool LoadBlockIndex(bool fAllowNew)
         block.hashPrevBlock = 0;
         block.hashMerkleRoot = block.BuildMerkleTree();
         block.nVersion = 1;
-        block.nTime    = 1366559428;
+
         block.nBits    = 0x1e0ffff0;
+
+        block.nTime    = 1439662938;
         block.nNonce   = 2085386442;
 
         if (fTestNet)
         {
-            block.nTime    = 1366559428;
-            block.nNonce   = 386402991;
+            block.nTime    = 1439662938;
+            block.nNonce   = 386766984;
         }
 
         //// debug print
         printf("%s\n", block.GetHash().ToString().c_str());
         printf("%s\n", hashGenesisBlock.ToString().c_str());
         printf("%s\n", block.hashMerkleRoot.ToString().c_str());
-        assert(block.hashMerkleRoot == uint256("0x5a2e19825b4162f68602039040f1e05d9f924ff00a3aff7327ca6abd6f3279bc"));
+        assert(block.hashMerkleRoot == uint256("0x8e15b048b6cf735a85a22ebe837224b41cd8d7c278af78f838fdc98b6be22ec8"));
 
         // If genesis block hash does not match, then generate new genesis hash.
-        if (false && block.GetHash() != hashGenesisBlock)
+        if (true && block.GetHash() != hashGenesisBlock)
         {
             printf("Searching for genesis block...\n");
             // This will figure out a valid hash and Nonce if you're
